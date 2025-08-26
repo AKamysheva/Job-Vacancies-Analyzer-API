@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+*.log
+*.pot
+*.env
+*.py[cod]
+*$py.class
+
+__pypackages__/
+.history/
+
