@@ -1,6 +1,6 @@
 import re
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.services.service_hh import get_vacancies
+from app.services.service_hh import HHCollectorVacancies
 from app.services.save_vacancy import save_vacancy
 from app.services.delete import delete_archived_vacancies
 from dateutil.parser import parse
@@ -59,7 +59,8 @@ def filter_vacancies(data: list, keyword: str):
 
 
 async def parse_and_save(query: str, per_page: int, db: AsyncSession):
-    raw_vacancies = await get_vacancies(query, per_page)
+    collector = HHCollectorVacancies(query=query, per_page=per_page)
+    raw_vacancies = await collector.get_vacancies()
     vacancies = filter_vacancies(raw_vacancies, query)
 
     await delete_archived_vacancies(db)
