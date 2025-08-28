@@ -1,4 +1,8 @@
 import re
+from fastapi import Depends
+from app.db.database import get_db
+from app.db.models import Vacancy
+from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.service_hh import HHCollectorVacancies
 from app.services.save_vacancy import save_vacancy
@@ -73,3 +77,9 @@ async def parse_and_save(query: str, per_page: int, db: AsyncSession):
             saved_vacancies.append(saved)
 
     return saved_vacancies
+
+
+async def get_vacancies_from_db(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Vacancy))
+    vacancies = result.scalars().all()
+    return vacancies
