@@ -25,7 +25,8 @@ async def delete_archived_vacancies(db: AsyncSession):
 
             data = response.json()
             vacancy_type = data.get("type", {}).get("id", "").lower()
-            if vacancy_type != "open":
+            vacancy_archived = data.get("archived", False)
+            if vacancy_type != "open" or vacancy_archived:
                 return hh_id
 
     archived_ids = await asyncio.gather(*(check_and_delete(hh_id) for hh_id in hh_ids))

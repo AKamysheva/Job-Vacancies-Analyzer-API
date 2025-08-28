@@ -5,6 +5,9 @@ from app.db.models import Vacancy
 
 
 async def save_vacancy(db: AsyncSession, vacancy: dict) -> Vacancy:
+    if vacancy.get("archived"):
+        return None
+
     hh_id = vacancy.get("hh_id")
     if not hh_id:
         return None
