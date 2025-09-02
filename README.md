@@ -1,4 +1,4 @@
-# Vacancy Analyzer API
+# Vacancy Collector API
 
 #### An asynchronous FastAPI application that collects, filters, and stores job vacancies from HeadHunter API.
 
