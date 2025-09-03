@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     NAME_DB: str
     HOST_DB: str
     PORT_DB: int
+    GEMINI_API_KEY: str
+    RESUME_PATH: str
 
     @property
     def database_url(self):

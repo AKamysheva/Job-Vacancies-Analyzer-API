@@ -6,6 +6,7 @@ from app.routers import (
     all_vacancies_from_db,
     delete_vacancy,
     export_vacancies,
+    get_cover_letter,
 )
 from app.tasks import scheduler, start_scheduler
 
@@ -23,6 +24,7 @@ app.include_router(parser.router)
 app.include_router(all_vacancies_from_db.router)
 app.include_router(vacancies.router)
 app.include_router(export_vacancies.router)
+app.include_router(get_cover_letter.router)
 app.include_router(delete_vacancy.router)
 
 
