@@ -1,5 +1,5 @@
 import pdfplumber
-import os
+from pathlib import Path
 from httpx import AsyncClient
 from google import genai
 from google.genai import types
@@ -52,8 +52,11 @@ async def generate_cover_letter(vacancy_id: int):
 
     cover_letter = response_.text
 
-    save_path = os.path.join(os.getcwd(), f"cover_letter_{vacancy_id}.txt")
-    with open(save_path, "w", encoding="utf-8") as file:
+    COVER_LETTERS_DIR = Path("app/cover_letters")
+    COVER_LETTERS_DIR.mkdir(exist_ok=True)
+
+    file_path = COVER_LETTERS_DIR / f"cover_letter_{vacancy_id}.txt"
+    with open(file_path, "w", encoding="utf-8") as file:
         file.write(cover_letter)
 
     return cover_letter
