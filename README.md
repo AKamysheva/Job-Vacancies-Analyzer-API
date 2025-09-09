@@ -13,9 +13,9 @@ The API focuses on open remote positions and allows you to:
 
 ```
 git clone https://github.com/AKamysheva/Job-Vacancies-Analyzer-API.git
+poetry install 
 cd vacancy-analyzer
-pip install -r requirements.txt
-uvicorn app.main:app --reload
+poetry run uvicorn app.main:app --reload
 ```
 
 
