@@ -25,7 +25,7 @@ class HHCollectorVacancies:
             "rabota.by",
         ]
 
-    async def collect_vacansies_by_host(self, client, host):
+    async def collect_vacanсies_by_host(self, client, host):
         url = "https://api.hh.ru/vacancies"
         params = {"text": self.query, "per_page": self.per_page, "host": host}
         response = await client.get(url, params=params)
@@ -36,7 +36,7 @@ class HHCollectorVacancies:
         tasks = []
         async with AsyncClient() as client:
             for host in self.hosts:
-                task = asyncio.create_task(self.collect_vacansies_by_host(client, host))
+                task = asyncio.create_task(self.collect_vacanсies_by_host(client, host))
                 tasks.append(task)
 
             result = await asyncio.gather(*tasks)
