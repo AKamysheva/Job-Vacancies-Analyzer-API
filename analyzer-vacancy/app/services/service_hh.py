@@ -26,11 +26,19 @@ class HHCollectorVacancies:
         ]
 
     async def collect_vacanсies_by_host(self, client, host):
-        url = "https://api.hh.ru/vacancies"
-        params = {"text": self.query, "per_page": self.per_page, "host": host}
+        url = f"https://api.{host}/vacancies"
+        params = {"text": self.query, "per_page": self.per_page}
         response = await client.get(url, params=params)
         response.raise_for_status()
         return response.json()["items"]
+
+    def _handle_result(self, result):
+        new_result = []
+        for res in result:
+            if isinstance(res, Exception):
+                continue
+            new_result.extend(res)
+        return new_result
 
     async def get_vacancies(self):
         tasks = []
@@ -39,5 +47,6 @@ class HHCollectorVacancies:
                 task = asyncio.create_task(self.collect_vacanсies_by_host(client, host))
                 tasks.append(task)
 
-            result = await asyncio.gather(*tasks)
-        return [v for host_lst in result for v in host_lst]
+            result = await asyncio.gather(*tasks, return_exceptions=True)
+
+        return self._handle_result(result)
