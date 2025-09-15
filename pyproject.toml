@@ -105,10 +105,19 @@ dependencies = [
     "virtualenv (==20.32.0)",
     "watchfiles (==1.1.0)",
     "websockets (==15.0.1)",
-    "zstandard (==0.24.0)"
+    "zstandard (==0.24.0)",
+    "pytest (>=8.4.2,<9.0.0)",
+    "aiosqlite (>=0.21.0,<0.22.0)",
+    "pytest-mock (>=3.15.0,<4.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+trio = "^0.31.0"
+pytest-anyio = "^0.0.0"
+pytest-asyncio = "^1.1.0"
+
