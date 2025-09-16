@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:17
+    container_name: db_vacancies
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./app/.env
+
+  analyzer_vacancy:
+    image: analyzer_vacancy:latest
+    container_name: web_analyzer_vacancy
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    env_file:
+      - ./app/.env
+    command: bash -c "poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8100"
+    ports:
+      - "8100:8100"
+
+
+volumes:
+  postgres_data:
+
